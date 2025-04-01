@@ -18,6 +18,7 @@
         placeholder="example@tinyhr.com"
         class="w-full md:w-[30rem] mb-1"
         name="email"
+        v-model="form.email"
       />
       <Message
         v-if="$form.email?.invalid"
@@ -41,6 +42,7 @@
         class="mb-2"
         fluid
         :feedback="false"
+        v-model="form.password"
       ></Password>
       <Message
         v-if="$form.password?.invalid"
@@ -54,6 +56,7 @@
     <div class="flex items-center justify-between mt-2 mb-8 gap-8">
       <div class="flex items-center">
         <Checkbox
+          v-model="form.remember"
           name="remember"
           id="rememberme1"
           binary
@@ -71,40 +74,37 @@
   </Form>
 </template>
 <script setup lang="ts">
+import { useUserStore } from '@/shared/store/user'
 import { Form } from '@primevue/forms'
-import { useToast } from 'primevue/usetoast'
-import { reactive } from 'vue'
+import { zodResolver } from '@primevue/forms/resolvers/zod'
+import { reactive, ref } from 'vue'
+import { z } from 'zod'
+import type { LoginFormData } from '../entities/LoginForm.type'
 
-const toast = useToast()
-const initialValues = reactive({
+const initialValues = reactive<LoginFormData>({
   email: '',
   password: '',
   remember: false
 })
+const form = ref<LoginFormData>({
+  email: '',
+  password: '',
+  remember: false
+})
+const { userLogin } = useUserStore()
 
-const resolver = ({ values }: any) => {
-  const errors: any = {}
-
-  if (!values.username) {
-    errors.email = [{ message: 'Vui lòng nhập email.' }]
-  }
-  if (!values.password) {
-    errors.password = [{ message: 'Vui lòng nhập password.' }]
-  }
-
-  return {
-    values,
-    errors
-  }
-}
-
-const onFormSubmit = ({ valid }: any) => {
-  if (valid) {
-    toast.add({
-      severity: 'success',
-      summary: 'Form is submitted.',
-      life: 3000
+const resolver = ref(
+  zodResolver(
+    z.object({
+      email: z.string().min(1, { message: 'Vui lòng nhập email.' }),
+      password: z.string().min(1, { message: 'Vui lòng nhập password.' })
     })
+  )
+)
+
+const onFormSubmit = async ({ valid }: any) => {
+  if (valid) {
+    await userLogin(form.value.email, form.value.password)
   }
 }
 </script>

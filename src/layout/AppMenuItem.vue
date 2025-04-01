@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useLayout } from '@/layout/composables/layout'
+import type { Menu } from '@/types/Authentication'
 import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -7,46 +8,37 @@ const route = useRoute()
 
 const { layoutState, setActiveMenuItem, toggleMenu } = useLayout()
 
-const props = defineProps({
-  item: {
-    type: Object,
-    default: () => ({}),
-  },
-  index: {
-    type: Number,
-    default: 0,
-  },
-  root: {
-    type: Boolean,
-    default: true,
-  },
-  parentItemKey: {
-    type: String,
-    default: null,
-  },
-})
+const props = withDefaults(
+  defineProps<{
+    item: Menu
+    index: number
+    root?: boolean
+    parentItemKey?: string | null
+  }>(),
+  {
+    index: 0,
+    root: true,
+    parentItemKey: null
+  }
+)
 
 const isActiveMenu = ref(false)
 const itemKey = ref<any>(null)
 
 onBeforeMount(() => {
-  itemKey.value = props.parentItemKey
-    ? props.parentItemKey + '-' + props.index
-    : String(props.index)
+  itemKey.value = props.parentItemKey ? props.parentItemKey + '-' + props.index : String(props.index)
 
   const activeItem = layoutState.activeMenuItem
 
   isActiveMenu.value =
-    activeItem === itemKey.value || activeItem
-      ? (activeItem || '').startsWith(itemKey.value + '-')
-      : false
+    activeItem === itemKey.value || activeItem ? (activeItem || '').startsWith(itemKey.value + '-') : false
 })
 
 watch(
   () => layoutState.activeMenuItem,
   (newVal) => {
     isActiveMenu.value = newVal === itemKey.value || (newVal || '').startsWith(itemKey.value + '-')
-  },
+  }
 )
 
 function itemClick(event: any, item: any) {
@@ -55,10 +47,7 @@ function itemClick(event: any, item: any) {
     return
   }
 
-  if (
-    (item.to || item.url) &&
-    (layoutState.staticMenuMobileActive || layoutState.overlayMenuActive)
-  ) {
+  if ((item.to || item.url) && (layoutState.staticMenuMobileActive || layoutState.overlayMenuActive)) {
     toggleMenu()
   }
 
@@ -66,11 +55,7 @@ function itemClick(event: any, item: any) {
     item.command({ originalEvent: event, item: item })
   }
 
-  const foundItemKey = item.items
-    ? isActiveMenu.value
-      ? props.parentItemKey
-      : itemKey
-    : itemKey.value
+  const foundItemKey = item.items ? (isActiveMenu.value ? props.parentItemKey : itemKey) : itemKey.value
 
   setActiveMenuItem(foundItemKey)
 }
@@ -82,37 +67,58 @@ function checkActiveRoute(item: any) {
 
 <template>
   <li :class="{ 'layout-root-menuitem': root, 'active-menuitem': isActiveMenu }">
-    <div v-if="root && item.visible !== false" class="layout-menuitem-root-text">
+    <div
+      v-if="root && item.visible !== false"
+      class="layout-menuitem-root-text"
+    >
       {{ item.label }}
     </div>
     <a
-      v-if="(!item.to || item.items) && item.visible !== false"
+      v-if="(!item.to || item.items?.length) && item.visible !== false"
       :href="item.url"
       @click="itemClick($event, item)"
       :class="item.class"
       :target="item.target"
       tabindex="0"
     >
-      <i :class="item.icon" class="layout-menuitem-icon"></i>
+      <i
+        :class="item.icon"
+        class="layout-menuitem-icon"
+      ></i>
       <span class="layout-menuitem-text">{{ item.label }}</span>
-      <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
+      <i
+        class="pi pi-fw pi-angle-down layout-submenu-toggler"
+        v-if="item.items?.length"
+      ></i>
     </a>
     <router-link
-      v-if="item.to && !item.items && item.visible !== false"
+      v-if="item.to && !item.items?.length && item.visible !== false"
       @click="itemClick($event, item)"
       :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
       tabindex="0"
       :to="item.to"
     >
-      <i :class="item.icon" class="layout-menuitem-icon"></i>
+      <i
+        :class="item.icon"
+        class="layout-menuitem-icon"
+      ></i>
       <span class="layout-menuitem-text">{{ item.label }}</span>
-      <i class="pi pi-fw pi-angle-down layout-submenu-toggler" v-if="item.items"></i>
+      <i
+        class="pi pi-fw pi-angle-down layout-submenu-toggler"
+        v-if="item.items?.length"
+      ></i>
     </router-link>
-    <Transition v-if="item.items && item.visible !== false" name="layout-submenu">
-      <ul v-show="root ? true : isActiveMenu" class="layout-submenu">
+    <Transition
+      v-if="item.items"
+      name="layout-submenu"
+    >
+      <ul
+        v-show="root ? true : isActiveMenu"
+        class="layout-submenu"
+      >
         <app-menu-item
           v-for="(child, i) in item.items"
-          :key="child"
+          :key="child.id"
           :index="i"
           :item="child"
           :parentItemKey="itemKey"
