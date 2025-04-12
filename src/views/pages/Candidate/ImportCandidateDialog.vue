@@ -2,6 +2,7 @@
   <Dialog
     v-model:visible="importVisible"
     header="Nhập liệu ứng viên từ CV"
+    :style="{ width: '75%' }"
     :modal="true"
   >
     <Stepper
@@ -9,9 +10,9 @@
       class="basis-[50rem]"
     >
       <StepList>
-        <Step value="1">Header I</Step>
-        <Step value="2">Header II</Step>
-        <Step value="3">Header III</Step>
+        <Step value="1">Tải lên CV</Step>
+        <Step value="2">Tải lên chứng chỉ</Step>
+        <Step value="3">Xác thực</Step>
       </StepList>
       <StepPanels>
         <StepPanel value="1">
@@ -61,5 +62,5 @@
 import { useCandidate } from './composables/useCandidate'
 import ImportCandidate from './ImportCandidate.vue'
 
-const { importVisible } = useCandidate()
+const { importVisible, handleToggleImport } = useCandidate()
 </script>

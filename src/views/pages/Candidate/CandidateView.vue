@@ -6,6 +6,7 @@
           label="New"
           icon="pi pi-plus"
           class="mr-2"
+          @click="handleOpenToast"
         />
       </template>
 
@@ -66,12 +67,21 @@
 </template>
 
 <script setup lang="ts">
+import { useToastStore } from '@/shared/store/toast'
 import { useCandidate } from './composables/useCandidate'
 import ImportCandidateDialog from './ImportCandidateDialog.vue'
 const { getCandidateDataTable, importVisible, candidatesDataTable } = useCandidate()
-
+const toastStore = useToastStore()
 async function initializeData() {
   await Promise.allSettled([getCandidateDataTable()])
 }
 initializeData()
+const handleOpenToast = () => {
+  toastStore.addToast({
+    severity: 'success',
+    summary: 'Thành công!',
+    detail: 'Dữ liệu đã được lưu thành công.',
+    life: 3000
+  })
+}
 </script>

@@ -32,7 +32,7 @@ axiosClient.interceptors.response.use(
       console.log(code, message)
     }
   },
-  (error) => {
+  (error: AxiosResponse<Result>) => {
     console.log(error)
     return Promise.reject(error)
   }

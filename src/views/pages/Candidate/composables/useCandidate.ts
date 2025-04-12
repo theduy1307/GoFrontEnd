@@ -5,7 +5,7 @@ import { useCandidateStoreRefs } from './useCandidateToRefs'
 
 export function useCandidate() {
   const { getCandidatePaging } = candidateApi()
-  const { candidatesDataTable, importVisible } = useCandidateStoreRefs()
+  const { candidatesDataTable, importVisible, fileUpload } = useCandidateStoreRefs()
   const paging = ref<Paging>({
     pageIndex: 1,
     pageSize: 10
@@ -18,6 +18,7 @@ export function useCandidate() {
   function handleToggleImport(isVisible: boolean) {
     importVisible.value = isVisible
   }
+
   return {
     candidatesDataTable,
     importVisible,

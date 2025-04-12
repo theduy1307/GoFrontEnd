@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useToastStore } from './toast'
-import type { AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
 import type { UserInfo } from '@/types/UserInfo'
 import type { Menu } from '@/types/Authentication'
 import type { Result } from '@/types/shared/Result'
@@ -24,8 +24,8 @@ export const useUserStore = defineStore('user', () => {
   const { login, getMenu } = authenticationApi()
   const redirectUrl = route.query.redirectUrl || '/'
   const router = useRouter()
-  const toastStore = useToastStore()
   const isAuthenticated = computed(() => !!userInfo.value.accessToken)
+  const toast = useToastStore()
   // Hàm login: Gửi email & password, lấy token về
   const userLogin = async (email: string, password: string) => {
     try {
@@ -33,11 +33,23 @@ export const useUserStore = defineStore('user', () => {
       localStorage.setItem(constants.ACCESS_TOKEN, token)
       userInfo.value.accessToken = token
       router.push(redirectUrl as string)
-      toastStore.showToast('Đăng nhập thành công', 'success', 3000)
+      toast.addToast({
+        severity: 'success',
+        summary: 'Thành công!',
+        detail: 'Đăng nhập thành công',
+        life: 3000
+      })
       await getUser() // Gọi API lấy thông tin user sau khi login
       return true
     } catch (error) {
-      console.error('Login failed', error)
+      const { response } = error as AxiosError<Result>
+      console.log(response?.data.error.message)
+      toast.addToast({
+        severity: 'error',
+        summary: 'Lỗi',
+        detail: response?.data.error.message as string,
+        life: 3000
+      })
       return false
     }
   }
