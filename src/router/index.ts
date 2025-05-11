@@ -114,6 +114,11 @@ const router = createRouter({
           path: '/candidate',
           name: 'candidate',
           component: () => import('@/views/pages/Candidate/CandidateView.vue')
+        },
+        {
+          path: '/user-management',
+          name: 'user-management',
+          component: () => import('@/views/pages/UserManagement/UserManagementView.vue')
         }
       ]
     },

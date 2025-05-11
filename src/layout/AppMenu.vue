@@ -20,7 +20,7 @@ const model = ref<Menu[]>([
         label: 'Dashboard',
         icon: 'pi pi-fw pi-home',
         to: '/',
-        visible: isAdmin.value
+        visible: true
       }
     ]
   },

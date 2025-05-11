@@ -1,3 +1,4 @@
 export enum UserInfoEnpoint {
-  Employee = '/Employee'
+  Employee = '/Employee',
+  Me = `${Employee}/Me`
 }

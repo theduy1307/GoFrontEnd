@@ -61,7 +61,7 @@ function itemClick(event: any, item: any) {
 }
 
 function checkActiveRoute(item: any) {
-  return route.path === item.to
+  return route.path === `/${item.to}`
 }
 </script>
 
