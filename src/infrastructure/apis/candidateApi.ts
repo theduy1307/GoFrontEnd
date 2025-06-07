@@ -18,8 +18,16 @@ export function candidateApi() {
       }
     })
   }
+  function visionApi(formData: FormData): Promise<Candidate> {
+    return axiosClient.post(CandidateEndpoint.VisionApi, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  }
   return {
     getCandidatePaging,
-    parseCvInformation
+    parseCvInformation,
+    visionApi
   }
 }

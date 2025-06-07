@@ -29,7 +29,7 @@
             <div
               class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium"
             >
-              Content II
+              <ImportCertificate />
             </div>
           </div>
         </StepPanel>
@@ -61,6 +61,7 @@
 <script setup lang="ts">
 import { useCandidate } from './composables/useCandidate'
 import ImportCandidate from './ImportCandidate.vue'
+import ImportCertificate from './ImportCertificate.vue';
 
 const { importVisible, handleToggleImport } = useCandidate()
 </script>

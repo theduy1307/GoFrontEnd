@@ -1,4 +1,5 @@
 export enum CandidateEndpoint {
   Candidate = '/Candidate',
-  ParseCvInformation = `${Candidate}/ParseCvInformation`
+  ParseCvInformation = `${Candidate}/ParseCvInformation`,
+  VisionApi = `${Candidate}/VisionApi`
 }
