@@ -13,6 +13,7 @@
       @click="uploadFile"
       icon="pi pi-cloud-upload"
       label="Upload"
+      :disabled="isLoadingImport"
     ></Button>
   </div>
 </template>
@@ -21,10 +22,15 @@
 import { candidateApi } from '@/infrastructure/apis/candidateApi'
 import { useToastStore } from '@/shared/store/toast'
 import { useCandidateStoreRefs } from './composables/useCandidateToRefs'
+import { useCandidate } from './composables/useCandidate'
 
+const props = defineProps({
+  activateCallback: Function
+})
 const toast = useToastStore()
 const { parseCvInformation } = candidateApi()
 const { fileUpload } = useCandidateStoreRefs()
+const { isLoadingImport, handleSetCandidateInfo } = useCandidate()
 const uploadFile = async () => {
   if (!fileUpload.value) {
     toast.addToast({
@@ -51,9 +57,10 @@ const uploadFile = async () => {
 
   try {
     const response = await parseCvInformation(formData)
+    handleSetCandidateInfo(response)
     if (response) {
       toast.addToast({ severity: 'success', summary: 'Thành công', detail: 'Tải lên thành công!', life: 3000 })
-      console.log('Response:', response)
+      props.activateCallback?.('2')
     }
   } catch (error) {
     toast.addToast({ severity: 'error', summary: 'Lỗi', detail: 'Upload thất bại!', life: 3000 })

@@ -4,14 +4,18 @@ import { RecruitmentEndpoint } from '../enums/recruitmentEndpoint'
 import type { PagingResultBase } from '@/types/shared/PagingResultBase'
 import type { RecruitmentCampaign } from '@/types/Recruitment'
 import type { Result } from '@/types/shared/Result'
-import type { Candidate } from '@/types/Candidate'
+import type { CandidateDataTableInfo } from '@/types/Candidate'
 import { CandidateEndpoint } from '../enums/candidateEndpoint'
+import type { JobsGoApiResult, JobsGoResponse } from '@/types/JobsGoResponse'
 
 export function candidateApi() {
-  function getCandidatePaging(pageIndex: number, pageSize: number): Promise<PagingResultBase<Candidate[]>> {
+  function getCandidatePaging(
+    pageIndex: number,
+    pageSize: number
+  ): Promise<PagingResultBase<CandidateDataTableInfo[]>> {
     return axiosClient.get(CandidateEndpoint.Candidate, { params: { pageIndex, pageSize } })
   }
-  function parseCvInformation(formData: FormData): Promise<Candidate> {
+  function parseCvInformation(formData: FormData): Promise<JobsGoResponse> {
     return axiosClient.post(CandidateEndpoint.ParseCvInformation, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'

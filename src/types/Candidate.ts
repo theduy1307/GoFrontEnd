@@ -1,4 +1,4 @@
-export interface Candidate {
+export interface CandidateDataTableInfo {
   fullName: string
   dateOfBirth: string
   gender: string

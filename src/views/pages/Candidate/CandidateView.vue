@@ -78,9 +78,9 @@ async function initializeData() {
 initializeData()
 const handleOpenToast = () => {
   toastStore.addToast({
-    severity: 'success',
-    summary: 'Thành công!',
-    detail: 'Dữ liệu đã được lưu thành công.',
+    severity: 'info',
+    summary: 'Thông tin',
+    detail: 'Chức năng tạm thời chưa phát triển, vui lòng quay lại sau',
     life: 3000
   })
 }
