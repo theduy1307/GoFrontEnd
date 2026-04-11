@@ -119,6 +119,11 @@ const router = createRouter({
           path: '/user-management',
           name: 'user-management',
           component: () => import('@/views/pages/UserManagement/UserManagementView.vue')
+        },
+        {
+          path: '/schedule',
+          name: 'schedule',
+          component: () => import('@/views/pages/Schedule/Schedule.vue')
         }
       ]
     },

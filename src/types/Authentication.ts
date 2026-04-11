@@ -1,14 +1,14 @@
 export interface Menu {
-  id: string
+  id: number
   label: string
   icon?: string
-  to?: string
-  parentId?: string
-  url?: string
+  to?: string | null
+  parentId?: number | null
   items?: Menu[]
+  visible?: boolean
+  url?: string
   target?: string
   class?: string
   separator?: boolean
-  visible?: boolean
   disabled?: boolean
 }

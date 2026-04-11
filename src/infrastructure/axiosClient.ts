@@ -2,9 +2,10 @@ import axios, { type AxiosResponse } from 'axios'
 import constants from '@/utils/constants'
 import { useToastStore } from '@/shared/store/toast'
 import type { Result } from '@/types/shared/Result'
+import { DEFAULT_API_BASE_URL } from '@/infrastructure/constants/apiConstants'
 
 const axiosClient = axios.create({
-  baseURL: 'https://localhost:5000/api/v1',
+  baseURL: DEFAULT_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',

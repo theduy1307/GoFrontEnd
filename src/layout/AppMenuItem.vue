@@ -63,6 +63,10 @@ function itemClick(event: any, item: any) {
 function checkActiveRoute(item: any) {
   return route.path === `/${item.to}`
 }
+
+function isMaterialIcon(iconName?: string): boolean {
+  return iconName ? !iconName.includes('pi') : false
+}
 </script>
 
 <template>
@@ -82,9 +86,16 @@ function checkActiveRoute(item: any) {
       tabindex="0"
     >
       <i
+        v-if="!isMaterialIcon(item.icon)"
         :class="item.icon"
         class="layout-menuitem-icon"
       ></i>
+      <span
+        v-else-if="isMaterialIcon(item.icon)"
+        class="material-icons layout-menuitem-icon"
+      >
+        {{ item.icon }}
+      </span>
       <span class="layout-menuitem-text">{{ item.label }}</span>
       <i
         class="pi pi-fw pi-angle-down layout-submenu-toggler"
@@ -99,9 +110,16 @@ function checkActiveRoute(item: any) {
       :to="item.to"
     >
       <i
+        v-if="!isMaterialIcon(item.icon)"
         :class="item.icon"
         class="layout-menuitem-icon"
       ></i>
+      <span
+        v-else-if="isMaterialIcon(item.icon)"
+        class="material-icons layout-menuitem-icon"
+      >
+        {{ item.icon }}
+      </span>
       <span class="layout-menuitem-text">{{ item.label }}</span>
       <i
         class="pi pi-fw pi-angle-down layout-submenu-toggler"
