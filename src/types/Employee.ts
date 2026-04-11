@@ -1,6 +1,7 @@
 export interface Employee {
-  id: string
-  fullName: string
+  id: number
+  firstName: string
+  lastName: string
   nickName: string
   dateOfBirth: string
   placeOfBirth: string
@@ -8,5 +9,5 @@ export interface Employee {
   passportNumber: string
   taxId: string
   isActive: boolean
-  roleIds: string[]
+  roleIds: number[]
 }

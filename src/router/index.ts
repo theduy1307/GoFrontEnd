@@ -116,6 +116,11 @@ const router = createRouter({
           component: () => import('@/views/pages/Candidate/CandidateView.vue')
         },
         {
+          path: '/employees',
+          name: 'employees',
+          component: () => import('@/views/pages/Employee/EmployeeView.vue')
+        },
+        {
           path: '/user-management',
           name: 'user-management',
           component: () => import('@/views/pages/UserManagement/UserManagementView.vue')
