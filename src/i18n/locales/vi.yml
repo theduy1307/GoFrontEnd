@@ -1,0 +1,78 @@
+auth:
+  login:
+    title: Chào mừng đến TinyHR!
+    subtitle: Đăng nhập để tiếp tục
+    email:
+      label: Email
+      placeholder: Nhập email của bạn
+    password:
+      label: Mật khẩu
+      placeholder: Nhập mật khẩu
+    rememberMe: Nhớ tôi
+    forgotPassword: Quên mật khẩu?
+    signIn: Đăng nhập
+    errors:
+      emailRequired: Vui lòng nhập email.
+      passwordRequired: Vui lòng nhập password.
+
+common:
+  create: Tạo nhân viên mới
+  noData: Không có dữ liệu.
+  loading: Đang tải dữ liệu...
+  active: Hoạt động
+  inactive: Không hoạt động
+  male: Nam
+  female: Nữ
+
+table:
+  columns:
+    firstName: Tên
+    lastName: Họ
+    dateOfBirth: Ngày sinh
+    gender: Giới tính
+    active: Hoạt động
+
+employee:
+  title: Quản lý Nhân viên
+  list: Danh sách Nhân viên
+  create: Tạo nhân viên mới
+  createMessage: Chức năng tạo nhân viên mới đang phát triển, vui lòng quay lại sau
+  createSuccess: Tạo nhân viên thành công
+  createError: Không thể tạo nhân viên
+  edit: Chỉnh sửa Nhân viên
+  delete: Xóa Nhân viên
+  firstName: Tên
+  firstNameRequired: Tên là bắt buộc
+  lastName: Họ
+  lastNameRequired: Họ là bắt buộc
+  nickName: Tên thường gọi
+  dateOfBirth: Ngày sinh
+  dateOfBirthRequired: Ngày sinh là bắt buộc
+  placeOfBirth: Nơi sinh
+  gender: Giới tính
+  genderRequired: Giới tính là bắt buộc
+  genderMale: Nam
+  genderFemale: Nữ
+  passportNumber: Số hộ chiếu
+  taxId: Mã số thuế
+  isActive: Hoạt động
+  roleIds: ID Vai trò
+  form:
+    title: Tạo Nhân viên Mới
+    submit: Tạo
+    cancel: Hủy
+
+candidate:
+  list: Danh sách Ứng viên
+  new: Mới
+  import: Nhập
+  export: Xuất
+  emptyMessage: Không có dữ liệu.
+  loadingMessage: Đang tải dữ liệu ứng viên
+
+messages:
+  info: Thông tin
+  success: Thành công
+  warning: Cảnh báo
+  error: Lỗi
+  confirmation: Xác nhận

@@ -29,8 +29,11 @@ axiosClient.interceptors.response.use(
       return response.data.value
     }
     else {
-      const {code, message} = response.data.error
-      console.log(code, message)
+      const error = response.data.error
+      const errorMessage = error?.message || 'An error occurred'
+      const errorCode = error?.code || 'UNKNOWN_ERROR'
+      console.log(errorCode, errorMessage)
+      return Promise.reject(new Error(errorMessage))
     }
   },
   (error: AxiosResponse<Result>) => {

@@ -3,7 +3,7 @@
     <Toolbar class="mb-6">
       <template #start>
         <Button
-          label="New"
+          :label="$t('candidate.new')"
           icon="pi pi-plus"
           class="mr-2"
           @click="handleOpenToast"
@@ -12,14 +12,14 @@
 
       <template #end>
         <Button
-          label="Import"
+          :label="$t('candidate.import')"
           icon="pi pi-plus"
           severity="secondary"
           class="mr-2"
           @click="importVisible = true"
         />
         <Button
-          label="Export"
+          :label="$t('candidate.export')"
           icon="pi pi-upload"
           severity="secondary"
         />
@@ -34,8 +34,8 @@
       filterDisplay="menu"
       showGridlines
     >
-      <template #empty> Không có dữ liệu. </template>
-      <template #loading> Đang tải dữ liệu </template>
+      <template #empty>{{ $t('candidate.emptyMessage') }}</template>
+      <template #loading>{{ $t('candidate.loadingMessage') }}</template>
       <Column
         field="fullName"
         header="Tên ứng viên"
@@ -67,19 +67,25 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useToastStore } from '@/shared/store/toast'
 import { useCandidate } from './composables/useCandidate'
 import ImportCandidateDialog from './ImportCandidateDialog.vue'
+
+const { t } = useI18n()
 const { getCandidateDataTable, importVisible, candidatesDataTable } = useCandidate()
 const toastStore = useToastStore()
+
 async function initializeData() {
   await Promise.allSettled([getCandidateDataTable()])
 }
+
 initializeData()
+
 const handleOpenToast = () => {
   toastStore.addToast({
     severity: 'info',
-    summary: 'Thông tin',
+    summary: t('messages.info'),
     detail: 'Chức năng tạm thời chưa phát triển, vui lòng quay lại sau',
     life: 3000
   })

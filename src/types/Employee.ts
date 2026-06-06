@@ -11,3 +11,13 @@ export interface Employee {
   isActive: boolean
   roleIds: number[]
 }
+
+export interface CreateEmployeeCommand {
+  firstName: string
+  lastName: string
+  nickName: string
+  email: string
+  dateOfBirth: string
+  placeOfBirth: string
+  gender: number
+}

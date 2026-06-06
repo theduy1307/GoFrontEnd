@@ -22,7 +22,7 @@ export function candidateApi() {
       }
     })
   }
-  function visionApi(formData: FormData): Promise<Candidate> {
+  function visionApi(formData: FormData): Promise<any> {
     return axiosClient.post(CandidateEndpoint.VisionApi, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'

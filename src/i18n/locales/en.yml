@@ -1,0 +1,78 @@
+auth:
+  login:
+    title: Welcome to TinyHR!
+    subtitle: Sign in to continue
+    email:
+      label: Email
+      placeholder: Enter your email
+    password:
+      label: Password
+      placeholder: Enter password
+    rememberMe: Remember me
+    forgotPassword: Forgot password?
+    signIn: Sign In
+    errors:
+      emailRequired: Please enter email.
+      passwordRequired: Please enter password.
+
+common:
+  create: Create a new employee
+  noData: No data available.
+  loading: Loading data...
+  active: Active
+  inactive: Inactive
+  male: Male
+  female: Female
+
+table:
+  columns:
+    firstName: First Name
+    lastName: Last Name
+    dateOfBirth: Date Of Birth
+    gender: Gender
+    active: Active
+
+employee:
+  title: Employee Management
+  list: Employee List
+  create: Create a new employee
+  createMessage: Feature to create new employee is under development, please come back later
+  createSuccess: Employee created successfully
+  createError: Failed to create employee
+  edit: Edit Employee
+  delete: Delete Employee
+  firstName: First Name
+  firstNameRequired: First Name is required
+  lastName: Last Name
+  lastNameRequired: Last Name is required
+  nickName: Nick Name
+  dateOfBirth: Date Of Birth
+  dateOfBirthRequired: Date Of Birth is required
+  placeOfBirth: Place of Birth
+  gender: Gender
+  genderRequired: Gender is required
+  genderMale: Male
+  genderFemale: Female
+  passportNumber: Passport Number
+  taxId: Tax ID
+  isActive: Is Active
+  roleIds: Role IDs
+  form:
+    title: Create New Employee
+    submit: Create
+    cancel: Cancel
+
+candidate:
+  list: Candidate List
+  new: New
+  import: Import
+  export: Export
+  emptyMessage: No data available.
+  loadingMessage: Loading candidate data
+
+messages:
+  info: Information
+  success: Success
+  warning: Warning
+  error: Error
+  confirmation: Confirmation

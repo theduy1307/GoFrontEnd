@@ -58,6 +58,7 @@
   </Dialog>
 </template>
 <script setup lang="ts">
+// @ts-ignore
 import CandidateFormInfo from './CandidateFormInfo.vue'
 import { useCandidate } from './composables/useCandidate'
 import ImportCandidate from './ImportCandidate.vue'

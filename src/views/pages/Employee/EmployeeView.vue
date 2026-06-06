@@ -3,9 +3,9 @@
     <Toolbar class="mb-6">
       <template #end>
         <Button
-          label="Create a new employee"
+          :label="$t('employee.create')"
           icon="pi pi-plus"
-          @click="handleCreateNewEmployee"
+          @click="handleOpenCreateModal"
         />
       </template>
     </Toolbar>
@@ -18,21 +18,21 @@
       filterDisplay="menu"
       showGridlines
     >
-      <template #empty>No data available.</template>
-      <template #loading>Loading employee data...</template>
+      <template #empty>{{ $t('common.noData') }}</template>
+      <template #loading>{{ $t('common.loading') }}</template>
       <Column
         field="firstName"
-        header="First Name"
+        :header="$t('table.columns.firstName')"
         style="min-width: 12rem"
       />
       <Column
         field="lastName"
-        header="Last Name"
+        :header="$t('table.columns.lastName')"
         style="min-width: 12rem"
       />
       <Column
         field="dateOfBirth"
-        header="Date Of Birth"
+        :header="$t('table.columns.dateOfBirth')"
         style="min-width: 12rem"
       >
         <template #body="slotProps">
@@ -41,7 +41,7 @@
       </Column>
       <Column
         field="gender"
-        header="Gender"
+        :header="$t('table.columns.gender')"
         style="min-width: 10rem"
       >
         <template #body="slotProps">
@@ -50,7 +50,7 @@
       </Column>
       <Column
         field="isActive"
-        header="Active"
+        :header="$t('table.columns.active')"
         style="min-width: 10rem"
       >
         <template #body="slotProps">
@@ -61,20 +61,17 @@
         </template>
       </Column>
     </DataTable>
+    <CreateEmployeeDialog />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useToastStore } from '@/shared/store/toast'
+import { useI18n } from 'vue-i18n'
 import { useEmployee } from './composables/useEmployee'
+import CreateEmployeeDialog from './CreateEmployeeDialog.vue'
 
-const GENDER_LABELS = {
-  0: 'Male',
-  1: 'Female'
-}
-
-const { getEmployeeDataTable, employeesDataTable } = useEmployee()
-const toastStore = useToastStore()
+const { t } = useI18n()
+const { getEmployeeDataTable, employeesDataTable, isCreateModalVisible } = useEmployee()
 
 async function initializeData() {
   await Promise.allSettled([getEmployeeDataTable()])
@@ -93,15 +90,14 @@ function formatDate(dateString: string): string {
 }
 
 function getGenderLabel(gender: number): string {
-  return GENDER_LABELS[gender as keyof typeof GENDER_LABELS] || 'Unknown'
+  const genderLabels: Record<number, string> = {
+    0: t('employee.genderFemale'),
+    1: t('employee.genderMale')
+  }
+  return genderLabels[gender] || 'Unknown'
 }
 
-function handleCreateNewEmployee() {
-  toastStore.addToast({
-    severity: 'info',
-    summary: 'Information',
-    detail: 'Feature to create new employee is under development, please come back later',
-    life: 3000
-  })
+function handleOpenCreateModal() {
+  isCreateModalVisible.value = true
 }
 </script>

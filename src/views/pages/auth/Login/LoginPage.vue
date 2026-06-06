@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import FloatingConfigurator from '@/components/FloatingConfigurator.vue'
 import LoginForm from './components/LoginForm.vue'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -54,8 +57,10 @@ import LoginForm from './components/LoginForm.vue'
                 />
               </g>
             </svg>
-            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to TinyHR!</div>
-            <span class="text-muted-color font-medium">Sign in to continue</span>
+            <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">
+              {{ t('auth.login.title') }}
+            </div>
+            <span class="text-muted-color font-medium">{{ t('auth.login.subtitle') }}</span>
           </div>
           <LoginForm />
         </div>
