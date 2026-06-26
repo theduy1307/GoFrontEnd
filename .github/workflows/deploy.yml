@@ -24,8 +24,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets::DOCKERHUB_USERNAME }}
-          password: ${{ secrets::DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Step 4: Build a Docker image and push it to Docker Hub with the tag.
       - name: Build and push Docker image
